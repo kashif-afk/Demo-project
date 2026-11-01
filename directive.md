@@ -6,7 +6,7 @@
 
 | Link | |
 |---|---|
-| Repository | `<REPO_URL>` |
+| Repository | https://github.com/kashif-afk/Demo-project |
 | Quest Loom video | `<LOOM_URL>` |
 | Career Path & Career Leverage video | `<CAREER_VIDEO_URL>` |
 
@@ -137,7 +137,7 @@ Window used in all cases: Mon 2026-10-19 00:00Z to Mon 2026-10-26 00:00Z. Expect
 
 ## 11. Results and handoff appendix
 
-**Artifact links:** repository `<REPO_URL>` · [intent.md](intent.md) · [docs/test-cases.md](docs/test-cases.md) · [docs/defect-report.md](docs/defect-report.md) · [docs/release-checklist.md](docs/release-checklist.md) · [docs/evidence-faulty.txt](docs/evidence-faulty.txt) · [docs/evidence-fixed.txt](docs/evidence-fixed.txt) · [docs/ai-log.md](docs/ai-log.md) · [.github/workflows/ci.yml](.github/workflows/ci.yml)
+**Artifact links:** repository https://github.com/kashif-afk/Demo-project · [intent.md](intent.md) · [docs/test-cases.md](docs/test-cases.md) · [docs/defect-report.md](docs/defect-report.md) · [docs/release-checklist.md](docs/release-checklist.md) · [docs/evidence-faulty.txt](docs/evidence-faulty.txt) · [docs/evidence-fixed.txt](docs/evidence-fixed.txt) · [docs/ai-log.md](docs/ai-log.md) · [.github/workflows/ci.yml](.github/workflows/ci.yml)
 
 **How to reproduce:**
 ```
