@@ -1,0 +1,31 @@
+# Captured 2026-11-01T11:49Z, Python 3.14.3, command: python -m pytest -v -k fixed
+
+============================= test session starts =============================
+platform win32 -- Python 3.14.3, pytest-9.2.0, pluggy-1.7.0 -- C:\Python314\python.exe
+cachedir: .pytest_cache
+rootdir: D:\demo local\rewards-qa
+configfile: pytest.ini
+testpaths: tests
+plugins: anyio-4.15.1, playwright-0.10.0
+collecting ... collected 34 items / 17 deselected / 17 selected
+
+tests/test_settlement.py::test_tc1_happy_path_pays_and_notifies_each_task[fixed] PASSED [  5%]
+tests/test_settlement.py::test_tc2_to_tc6_window_boundaries_and_timezones[fixed-tc2-lower-bound-included] PASSED [ 11%]
+tests/test_settlement.py::test_tc2_to_tc6_window_boundaries_and_timezones[fixed-tc3-upper-bound-excluded] PASSED [ 17%]
+tests/test_settlement.py::test_tc2_to_tc6_window_boundaries_and_timezones[fixed-tc4-just-inside] PASSED [ 23%]
+tests/test_settlement.py::test_tc2_to_tc6_window_boundaries_and_timezones[fixed-tc5-plus5-is-sunday-2359Z] PASSED [ 29%]
+tests/test_settlement.py::test_tc2_to_tc6_window_boundaries_and_timezones[fixed-tc6-plus5-is-monday-0000Z] PASSED [ 35%]
+tests/test_settlement.py::test_tc7_duplicate_task_id_in_input_is_paid_once[fixed] PASSED [ 41%]
+tests/test_settlement.py::test_tc8_retry_after_crash_pays_each_task_once[fixed] PASSED [ 47%]
+tests/test_settlement.py::test_tc9_rerun_of_finished_run_pays_nothing[fixed] PASSED [ 52%]
+tests/test_settlement.py::test_tc10_notification_failure_keeps_payouts[fixed] PASSED [ 58%]
+tests/test_settlement.py::test_tc11_failed_payout_sends_no_notification[fixed] PASSED [ 64%]
+tests/test_settlement.py::test_tc12_timestamp_without_offset_is_rejected[fixed] PASSED [ 70%]
+tests/test_ui.py::test_ui1_single_run_pays_each_qualifying_task_once[fixed-chromium] PASSED [ 76%]
+tests/test_ui.py::test_ui2_cut_off_task_is_shown_out_of_window_and_never_paid[fixed-chromium] PASSED [ 82%]
+tests/test_ui.py::test_ui3_running_again_pays_nothing[fixed-chromium] PASSED [ 88%]
+tests/test_ui.py::test_ui4_retry_after_crash_pays_each_task_once[fixed-chromium] PASSED [ 94%]
+tests/test_ui.py::test_ui5_notification_outage_keeps_payouts[fixed-chromium] PASSED [100%]
+
+====================== 17 passed, 17 deselected in 1.82s ======================
+# exit code: 0

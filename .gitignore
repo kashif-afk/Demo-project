@@ -1,0 +1,11 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+venv/
+.vscode/
+
+# installed agent skills (local tooling, not part of the submission)
+.agents/
+.claude/
+skills-lock.json

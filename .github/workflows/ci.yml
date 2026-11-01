@@ -1,0 +1,34 @@
+name: release-gate
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  release-gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install
+        run: |
+          pip install -r requirements.txt
+          python -m playwright install --with-deps chromium
+
+      - name: Fixed version passes every check (engine + Playwright)
+        run: python -m pytest -v -k fixed
+
+      - name: Faulty version passes the non-regression checks (tests are not failing everywhere)
+        run: python -m pytest -v -k faulty -m "not regression"
+
+      - name: Faulty version fails every regression check (tests really catch the double payout)
+        shell: bash
+        run: |
+          out=$(python -m pytest -q -k faulty -m regression || true)
+          echo "$out"
+          last=$(echo "$out" | tail -1)
+          if [[ $last != *failed* || $last == *passed* ]]; then
+            echo "GATE BROKEN: a regression check passed on the faulty version"; exit 1
+          fi
