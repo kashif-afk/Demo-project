@@ -156,7 +156,7 @@ python src/app.py                # demo page: http://127.0.0.1:8000
 | Faulty | 7 failed (TC7, TC8, TC9, TC10, UI3, UI4, UI5), 10 passed | 1 |
 | Fixed | 17 passed | 0 |
 | CI gate | verified locally: OK on faulty, "GATE BROKEN" when pointed at fixed | — |
-| CI on GitHub | `<add link to first green run>` | — |
+| CI on GitHub | passed: [run 41310774366](https://github.com/kashif-afk/Demo-project/actions/runs/41310774366) | 0 |
 
 Demo numbers: crash after 2 payouts, then retry → faulty pays **60** (T-1 and T-2 twice), fixed pays **40**.
 
@@ -164,6 +164,6 @@ Demo numbers: crash after 2 payouts, then retry → faulty pays **60** (T-1 and 
 
 **Limitations:** fictional flow; in-memory ledger and mock notifier; no concurrency testing; no real scheduler; a notification is lost if the job crashes between payout and notify; "paid once" is per window, so the same task ID in a later week would be paid again.
 
-**Release-readiness decision:** faulty **NO-GO** (retries overpay, notification outage reverses payouts). Fixed **GO**, on condition that CI is green on main.
+**Release-readiness decision:** faulty **NO-GO** (retries overpay, notification outage reverses payouts). Fixed **GO**: CI is green on main.
 
 **Pre-existing work:** an earlier version of this project (same case, different structure and a larger demo console) was built with Claude Code on 2026-10-30/31 and discarded on 2026-11-01. This version was rebuilt from scratch. The idea of making the payout and the ledger record a single write came from a gap found in that earlier version.

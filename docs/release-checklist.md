@@ -1,6 +1,6 @@
 # Release checklist — weekly settlement
 
-Results from the captured runs on 2026-11-01 ([evidence-faulty.txt](evidence-faulty.txt), [evidence-fixed.txt](evidence-fixed.txt)). CI result to be added after the first push.
+Results from the captured runs on 2026-11-01 ([evidence-faulty.txt](evidence-faulty.txt), [evidence-fixed.txt](evidence-fixed.txt)). CI passed on GitHub: [run 41310774366](https://github.com/kashif-afk/Demo-project/actions/runs/41310774366).
 
 ## Gates
 
@@ -14,7 +14,7 @@ Results from the captured runs on 2026-11-01 ([evidence-faulty.txt](evidence-fau
 | G6 | Notification failure keeps the payout | TC10, UI5 | FAIL | PASS |
 | G7 | No notification for a failed payout | TC11 | PASS | PASS |
 | G8 | Timestamp without offset rejected | TC12 | PASS | PASS |
-| G9 | CI: regression tests fail on faulty, pass on fixed | `.github/workflows/ci.yml` | gate verified locally | ⏳ link to first green CI run |
+| G9 | CI: regression tests fail on faulty, pass on fixed | `.github/workflows/ci.yml` | gate verified locally | PASS ([CI run](https://github.com/kashif-afk/Demo-project/actions/runs/41310774366)) |
 
 ## Remaining gaps (not covered)
 
@@ -27,4 +27,4 @@ Results from the captured runs on 2026-11-01 ([evidence-faulty.txt](evidence-fau
 ## Decision
 
 - **Faulty (current release): NO-GO.** G1, G2, G3, G4 and G6 fail: retries overpay, and a notification outage reverses payouts.
-- **Fixed: GO**, on condition that CI is green on the main branch. The gaps above are known risks for the next iteration, not blockers for this fix.
+- **Fixed: GO.** CI is green on main ([run](https://github.com/kashif-afk/Demo-project/actions/runs/41310774366)). The gaps above are known risks for the next iteration, not blockers for this fix.
