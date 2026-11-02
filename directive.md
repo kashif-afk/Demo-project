@@ -65,7 +65,7 @@ rewards-qa/
     test_ui.py         # UI1-UI7, Playwright, parametrised over faulty and fixed
   docs/
     plan.md, test-cases.md, defect-report.md, release-checklist.md
-    ai-log.md, effort-log.md, loom-script.md
+    effort-log.md
     evidence-faulty.txt, evidence-fixed.txt
 ```
 
@@ -133,11 +133,11 @@ Window used in all cases: Mon 2026-10-19 00:00Z to Mon 2026-10-26 00:00Z. Expect
 - Ask the agent to build the faulty version first and confirm TC8 fails **before** writing the fix.
 - Read and run every test yourself; do not accept "tests pass" without seeing the output.
 - Note each place you corrected the agent. These go in the appendix.
-- Keep a short log: what the AI wrote, what you changed, and why ([docs/ai-log.md](docs/ai-log.md)).
+- Keep a short record: what the AI wrote, what you changed, and why (summarised in the appendix).
 
 ## 11. Results and handoff appendix
 
-**Artifact links:** repository https://github.com/kashif-afk/Demo-project · [intent.md](intent.md) · [docs/test-cases.md](docs/test-cases.md) · [docs/defect-report.md](docs/defect-report.md) · [docs/release-checklist.md](docs/release-checklist.md) · [docs/evidence-faulty.txt](docs/evidence-faulty.txt) · [docs/evidence-fixed.txt](docs/evidence-fixed.txt) · [docs/ai-log.md](docs/ai-log.md) · [.github/workflows/ci.yml](.github/workflows/ci.yml)
+**Artifact links:** repository https://github.com/kashif-afk/Demo-project · [intent.md](intent.md) · [docs/test-cases.md](docs/test-cases.md) · [docs/defect-report.md](docs/defect-report.md) · [docs/release-checklist.md](docs/release-checklist.md) · [docs/evidence-faulty.txt](docs/evidence-faulty.txt) · [docs/evidence-fixed.txt](docs/evidence-fixed.txt) · [.github/workflows/ci.yml](.github/workflows/ci.yml)
 
 **How to reproduce:**
 ```
@@ -160,7 +160,14 @@ python src/app.py                # demo page: http://127.0.0.1:8000
 
 Demo numbers: crash after 2 payouts, then retry → faulty pays **60** (T-1 and T-2 twice), fixed pays **40**.
 
-**AI contribution and corrections:** see [docs/ai-log.md](docs/ai-log.md). `<Add your own corrections and decisions here.>`
+**AI contribution and corrections:** Claude Code (Claude Opus 5.5) wrote the code in `src/`, the tests, the demo page, CI and drafts of every document. The faulty version and its tests were written and run before `settle_fixed.py` existed (TC7–TC10 failed first). Corrections made along the way:
+- The directive contradicted itself on TC11; resolved by modelling the faulty version as "notify inside the payout transaction".
+- The Playwright fixture `base_url` clashed with pytest-playwright's own fixture; renamed to `demo_url`.
+- A load/reset race in the UI tests; tests now wait for the page before switching version.
+- The CI gate first missed pytest's "deselected" summary; fixed and verified ("GATE BROKEN" when pointed at fixed).
+- UI7 first failed on a missing log message instead of the double payout; reordered so it fails on "T-2 paid twice".
+
+`<Add your own corrections and decisions here.>`
 
 **Limitations:** fictional flow; in-memory ledger and mock notifier; no concurrency testing; no real scheduler; a notification is lost if the job crashes between payout and notify; "paid once" is per window, so the same task ID in a later week would be paid again.
 
