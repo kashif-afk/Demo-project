@@ -64,7 +64,7 @@ rewards-qa/
     test_settlement.py # TC1-TC12, parametrised over faulty and fixed
     test_ui.py         # UI1-UI7, Playwright, parametrised over faulty and fixed
   docs/
-    test-cases.md, defect-report.md, release-checklist.md
+    plan.md, test-cases.md, defect-report.md, release-checklist.md
     ai-log.md, effort-log.md, loom-script.md
     evidence-faulty.txt, evidence-fixed.txt
 ```
