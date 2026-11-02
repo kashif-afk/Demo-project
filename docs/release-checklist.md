@@ -1,6 +1,6 @@
 # Release checklist — weekly settlement
 
-Results from the captured runs on 2026-11-01 ([evidence-faulty.txt](evidence-faulty.txt), [evidence-fixed.txt](evidence-fixed.txt)). CI passed on GitHub: [run 41310774366](https://github.com/kashif-afk/Demo-project/actions/runs/41310774366).
+Results from the captured runs on 2026-11-02 ([evidence-faulty.txt](evidence-faulty.txt), [evidence-fixed.txt](evidence-fixed.txt)). CI passed on GitHub: [run 41310774366](https://github.com/kashif-afk/Demo-project/actions/runs/41310774366).
 
 ## Gates
 
@@ -8,9 +8,9 @@ Results from the captured runs on 2026-11-01 ([evidence-faulty.txt](evidence-fau
 |---|---|---|---|---|
 | G1 | Retry after crash pays each task once | TC8, UI4 | FAIL | PASS |
 | G2 | Re-run pays 0 | TC9, UI3 | FAIL | PASS |
-| G3 | Duplicate task ID paid once | TC7 | FAIL | PASS |
+| G3 | Duplicate task ID paid once | TC7, UI7 | FAIL | PASS |
 | G4 | Invariant: total = 10 × unique qualifying tasks | in every payout test | FAIL | PASS |
-| G5 | Cut-off and timezone | TC2–TC6, UI2 | PASS | PASS |
+| G5 | Cut-off and timezone | TC2–TC6, UI2, UI6 | PASS | PASS |
 | G6 | Notification failure keeps the payout | TC10, UI5 | FAIL | PASS |
 | G7 | No notification for a failed payout | TC11 | PASS | PASS |
 | G8 | Timestamp without offset rejected | TC12 | PASS | PASS |

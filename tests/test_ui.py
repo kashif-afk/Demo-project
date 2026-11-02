@@ -1,6 +1,7 @@
-"""UI1-UI5: Playwright drives the demo page (src/app.py) in a real browser, against both versions.
+"""UI1-UI7: Playwright drives the demo page (src/app.py) in a real browser, against both versions.
 
-Sample data: T-1..T-4 qualify (expected total 40); T-5 completed exactly Mon 00:00 UTC and does not.
+Sample data: T-1..T-4 qualify (expected total 40); T-3 is +05:00 (= Sun 23:59 UTC).
+T-5 (Z) and T-6 (+05:00) both land exactly on Mon 00:00 UTC and do not qualify.
 """
 
 import threading
@@ -24,7 +25,7 @@ def demo_url():
 @pytest.fixture(params=["faulty", "fixed"])
 def ui(request, page: Page, demo_url) -> Page:
     page.goto(demo_url)
-    expect(page.get_by_test_id("tasks").locator("tbody tr")).to_have_count(5)  # initial state loaded
+    expect(page.get_by_test_id("tasks").locator("tbody tr")).to_have_count(6)  # initial state loaded
     page.get_by_test_id("version").select_option(request.param)  # switching version resets the demo
     expect(page.get_by_test_id("status")).to_have_text("Not run yet.")
     expect(page.get_by_test_id("total-paid")).to_have_text("0")
@@ -78,3 +79,24 @@ def test_ui5_notification_outage_keeps_payouts(ui: Page):
     expect(ui.get_by_test_id("runs").locator("li").first).to_contain_text("notification failed T-1, T-2, T-3, T-4")
     expect(ui.get_by_test_id("total-paid")).to_have_text("40")
     expect(ui.get_by_test_id("notified")).to_have_text("none")
+
+
+def test_ui6_timezone_offsets_are_converted_to_utc_before_the_cut_off(ui: Page):
+    ui.get_by_test_id("run").click()
+
+    tasks = ui.get_by_test_id("tasks")
+    expect(tasks.locator("tr", has_text="T-3")).to_contain_text("+05:00")
+    expect(tasks.locator("tr", has_text="T-3")).to_contain_text("yes")  # Sun 23:59 UTC
+    expect(tasks.locator("tr", has_text="T-6")).to_contain_text("no")  # Mon 00:00 UTC
+    expect(ui.get_by_test_id("payouts")).to_contain_text("T-3")
+    expect(ui.get_by_test_id("payouts")).not_to_contain_text("T-6")
+
+
+@pytest.mark.regression
+def test_ui7_duplicate_task_id_in_input_is_paid_once(ui: Page):
+    ui.get_by_test_id("duplicate").check()
+    ui.get_by_test_id("run").click()
+
+    expect(ui.get_by_test_id("payouts").locator("tr", has_text="T-2")).to_have_count(1)
+    expect(ui.get_by_test_id("runs").locator("li").first).to_contain_text("skipped duplicate input T-2")
+    expect(ui.get_by_test_id("status")).to_have_text("OK: every task paid once, total 40.")

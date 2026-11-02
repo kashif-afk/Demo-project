@@ -3,7 +3,7 @@
 | Field | Value |
 |---|---|
 | Component | Weekly settlement job, `src/settle_faulty.py` (current release) |
-| Found by | Regression tests TC7, TC8, TC9 and Playwright UI3, UI4 |
+| Found by | Regression tests TC7, TC8, TC9 and Playwright UI3, UI4, UI7 |
 | Severity | **Critical** |
 | Priority | **P1: blocks release** |
 | Environment | Local fixture, Python 3.14.3, synthetic data, run time Tue 2026-10-27 09:00 UTC |
@@ -49,8 +49,8 @@ python -m pytest -v -k "tc8 and faulty"
 
 ## Evidence
 
-- [docs/evidence-faulty.txt](evidence-faulty.txt): 7 failed, 10 passed (exit 1)
-- [docs/evidence-fixed.txt](evidence-fixed.txt): 17 passed (exit 0)
+- [docs/evidence-faulty.txt](evidence-faulty.txt): 8 failed, 11 passed (exit 1)
+- [docs/evidence-fixed.txt](evidence-fixed.txt): 19 passed (exit 0)
 
 ## Fix
 

@@ -41,6 +41,7 @@
   </label>
   <label><input type="checkbox" id="crash" data-testid="crash"> Crash after 2 payouts</label>
   <label><input type="checkbox" id="notify-down" data-testid="notify-down"> Notification service down</label>
+  <label><input type="checkbox" id="duplicate" data-testid="duplicate"> T-2 sent twice in the input</label>
   <button id="run" data-testid="run">Run settlement</button>
   <button id="reset" class="secondary" data-testid="reset">Reset</button>
 </div>
@@ -106,6 +107,7 @@ function render(state) {
     const li = document.createElement("li");
     li.textContent = run.crashed ? `Crashed: ${run.crashed}`
       : `Paid ${run.paid.length ? run.paid.join(", ") : "nothing"}`
+        + (run.duplicate_input.length ? ` · skipped duplicate input ${run.duplicate_input.join(", ")}` : "")
         + (run.already_paid.length ? ` · skipped already paid ${run.already_paid.join(", ")}` : "")
         + (run.notify_failed.length ? ` · notification failed ${run.notify_failed.join(", ")}` : "");
     return li;
@@ -135,6 +137,7 @@ function render(state) {
 $("run").addEventListener("click", () => call("/api/run", {
   crash_after: $("crash").checked ? 2 : null,
   notifications_down: $("notify-down").checked,
+  duplicate_input: $("duplicate").checked,
 }));
 $("reset").addEventListener("click", () => call("/api/reset", { version: $("version").value }));
 $("version").addEventListener("change", () => call("/api/reset", { version: $("version").value }));

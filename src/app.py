@@ -21,7 +21,9 @@ SAMPLE_TASKS = [
     {"task_id": "T-3", "user_id": "U-3", "status": "completed", "completed_at": "2026-10-26T04:59:00+05:00"},
     {"task_id": "T-4", "user_id": "U-1", "status": "completed", "completed_at": "2026-10-23T16:45:00Z"},
     {"task_id": "T-5", "user_id": "U-2", "status": "completed", "completed_at": "2026-10-26T00:00:00Z"},
+    {"task_id": "T-6", "user_id": "U-3", "status": "completed", "completed_at": "2026-10-26T05:00:00+05:00"},
 ]
+DUPLICATE = SAMPLE_TASKS[1]  # "T-2 sent twice" appends this row to the input
 PAGE = Path(__file__).with_name("index.html")
 
 
@@ -42,15 +44,16 @@ class Demo:
         self.notifier = MockNotifier()
         self.runs: list[dict] = []
 
-    def run(self, crash_after: int | None, notifications_down: bool) -> None:
+    def run(self, crash_after: int | None, notifications_down: bool, duplicate_input: bool = False) -> None:
         settle = importlib.import_module(f"settle_{self.version}").settle
         self.notifier.fail = notifications_down
+        tasks = SAMPLE_TASKS + [DUPLICATE] if duplicate_input else SAMPLE_TASKS
         try:
-            result = settle(SAMPLE_TASKS, RUN_AT, self.ledger, self.notifier, crash_after=crash_after)
+            result = settle(tasks, RUN_AT, self.ledger, self.notifier, crash_after=crash_after)
         except SimulatedCrash as crash:
             self.runs.append({"crashed": str(crash)})
             return
-        self.runs.append({key: result[key] for key in ("paid", "already_paid", "notify_failed")})
+        self.runs.append({key: result[key] for key in ("paid", "duplicate_input", "already_paid", "notify_failed")})
 
     def state(self) -> dict:
         start, end = settlement_window(RUN_AT)
@@ -88,7 +91,7 @@ class Handler(BaseHTTPRequestHandler):
             if self.path == "/api/reset":
                 demo.reset(body.get("version", demo.version))
             elif self.path == "/api/run":
-                demo.run(body.get("crash_after"), bool(body.get("notifications_down")))
+                demo.run(body.get("crash_after"), bool(body.get("notifications_down")), bool(body.get("duplicate_input")))
             else:
                 return self._send(404, b"not found", "text/plain")
         except ValueError as error:

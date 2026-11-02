@@ -23,6 +23,13 @@ Tool: Claude Code (Claude Opus 5.5) in VS Code. Format from [plan.md](plan.md) Â
 - **Checked by running:** full suite 3 times (7 failed, 27 passed each time, ~12 s); evidence files captured from real runs; demo numbers (60 vs 40) read from the running code.
 - **Found while checking:** on the fixed version, a crash between payout and notify means that task is never notified (T-2 in UI4). Recorded as a gap, not hidden.
 
+## 2026-11-02: browser coverage for timezone and duplicates
+
+- **Asked:** make the Playwright tests cover all six categories, not only the engine tests.
+- **Produced:** sample task T-6 (`+05:00`, lands on Mon 00:00Z), a "T-2 sent twice in the input" checkbox on the demo page, and tests UI6 (timezone) and UI7 (duplicate input, `regression`).
+- **Corrected:** UI7 first checked the run log text, so on faulty it failed on a missing message rather than the defect. Reordered so it fails on "T-2 payout rows: expected 1, actual 2".
+- **Checked by running:** full suite 8 failed (all faulty), 30 passed; CI gate steps run locally (faulty non-regression 11 passed, faulty regression 8 failed); evidence files re-captured.
+
 ## My decisions
 
 `<Fill in: which problem you picked and why, what you accepted or rejected from the agent, what you checked yourself.>`

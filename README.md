@@ -18,9 +18,9 @@ python -m playwright install chromium
 ## Run
 
 ```
-python -m pytest -v              # everything: 7 failed (all on faulty), 27 passed
-python -m pytest -v -k fixed     # fixed only: 17 passed
-python -m pytest -v -k faulty    # faulty only: 7 failed, 10 passed
+python -m pytest -v              # everything: 8 failed (all on faulty), 30 passed
+python -m pytest -v -k fixed     # fixed only: 19 passed
+python -m pytest -v -k faulty    # faulty only: 8 failed, 11 passed
 python -m pytest -v -k "tc8"     # the headline test on both versions
 ```
 
@@ -42,6 +42,6 @@ Open http://127.0.0.1:8000, choose **faulty**, tick **Crash after 2 payouts**, c
 | `src/window.py`, `src/ledger.py`, `src/notifier.py` | window and UTC handling, payout ledger, mock notifier |
 | `src/app.py`, `src/index.html` | small local demo page (standard library only) |
 | `tests/test_settlement.py` | TC1–TC12 engine tests |
-| `tests/test_ui.py` | UI1–UI5 Playwright browser tests |
+| `tests/test_ui.py` | UI1–UI7 Playwright browser tests |
 | `docs/` | plan, test cases, defect report, release checklist, AI log, effort log, Loom script, evidence |
 | `.github/workflows/ci.yml` | release gate |

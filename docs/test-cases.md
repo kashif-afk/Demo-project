@@ -61,7 +61,7 @@ Every payout test also checks the invariant: **each task paid exactly once, tota
 
 ## Browser tests (Playwright, every case runs on both versions)
 
-The demo page ([src/app.py](../src/app.py)) runs the same settlement code on 5 sample tasks. T-1 to T-4 qualify (expected total 40). T-5 was completed exactly at Mon 00:00Z and does not.
+The demo page ([src/app.py](../src/app.py)) runs the same settlement code on 6 sample tasks. T-1 to T-4 qualify (expected total 40); T-3 is logged at +05:00 (= Sun 23:59Z). T-5 (`Z`) and T-6 (`+05:00`) both land exactly on Mon 00:00Z and do not.
 
 | ID | Category | Steps | Expected | Faulty | Fixed |
 |---|---|---|---|---|---|
@@ -70,6 +70,8 @@ The demo page ([src/app.py](../src/app.py)) runs the same settlement code on 5 s
 | UI3 | Retry | Run, then Run again | second run "Paid nothing · skipped already paid T-1, T-2, T-3, T-4" | **FAIL** | PASS |
 | UI4 | Retry after crash | Tick "Crash after 2 payouts", Run (20 paid), untick, Run | "OK: every task paid once, total 40." | **FAIL** (60, T-1 and T-2 twice) | PASS |
 | UI5 | Partial failure (notification) | Tick "Notification service down", Run | total 40, notifications "none", run shows the 4 failures | **FAIL** (total 0) | PASS |
+| UI6 | Timezone | Run settlement | T-3 (`+05:00`, Sun 23:59Z) "yes" and paid; T-6 (`+05:00`, Mon 00:00Z) "no" and not paid | PASS | PASS |
+| UI7 | Duplicate input | Tick "T-2 sent twice in the input", Run | one T-2 payout row, run shows "skipped duplicate input T-2", total 40 | **FAIL** (T-2 paid twice) | PASS |
 
 ## Coverage of the six required categories
 
@@ -77,13 +79,13 @@ The demo page ([src/app.py](../src/app.py)) runs the same settlement code on 5 s
 |---|---|
 | Happy path | TC1, UI1 |
 | Cut-off boundary | TC2, TC3, TC4, UI2 |
-| Timezone conversion | TC5, TC6, TC12 |
-| Duplicate input | TC7 |
+| Timezone conversion | TC5, TC6, TC12, UI6 |
+| Duplicate input | TC7, UI7 |
 | Retry | TC8, TC9, UI3, UI4 |
 | Partial failure | TC10, TC11, UI5 |
 
 ## Totals
 
-12 engine cases + 5 browser cases = 17 checks per version, 34 in one run.
-- **Faulty:** 7 failed (TC7, TC8, TC9, TC10, UI3, UI4, UI5 — exactly the tests marked `regression`), 10 passed. Exit 1.
-- **Fixed:** 17 passed. Exit 0.
+12 engine cases + 7 browser cases = 19 checks per version, 38 in one run.
+- **Faulty:** 8 failed (TC7, TC8, TC9, TC10, UI3, UI4, UI5, UI7 — exactly the tests marked `regression`), 11 passed. Exit 1.
+- **Fixed:** 19 passed. Exit 0.

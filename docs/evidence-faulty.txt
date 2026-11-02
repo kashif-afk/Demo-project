@@ -1,4 +1,4 @@
-# Captured 2026-11-01T11:49Z, Python 3.14.3, command: python -m pytest -v -k faulty
+# Captured 2026-11-02T13:02Z, Python 3.14.3, command: python -m pytest -v -k faulty
 
 ============================= test session starts =============================
 platform win32 -- Python 3.14.3, pytest-9.2.0, pluggy-1.7.0 -- C:\Python314\python.exe
@@ -7,32 +7,34 @@ rootdir: D:\demo local\rewards-qa
 configfile: pytest.ini
 testpaths: tests
 plugins: anyio-4.15.1, playwright-0.10.0
-collecting ... collected 34 items / 17 deselected / 17 selected
+collecting ... collected 38 items / 19 deselected / 19 selected
 
 tests/test_settlement.py::test_tc1_happy_path_pays_and_notifies_each_task[faulty] PASSED [  5%]
-tests/test_settlement.py::test_tc2_to_tc6_window_boundaries_and_timezones[faulty-tc2-lower-bound-included] PASSED [ 11%]
-tests/test_settlement.py::test_tc2_to_tc6_window_boundaries_and_timezones[faulty-tc3-upper-bound-excluded] PASSED [ 17%]
-tests/test_settlement.py::test_tc2_to_tc6_window_boundaries_and_timezones[faulty-tc4-just-inside] PASSED [ 23%]
-tests/test_settlement.py::test_tc2_to_tc6_window_boundaries_and_timezones[faulty-tc5-plus5-is-sunday-2359Z] PASSED [ 29%]
-tests/test_settlement.py::test_tc2_to_tc6_window_boundaries_and_timezones[faulty-tc6-plus5-is-monday-0000Z] PASSED [ 35%]
-tests/test_settlement.py::test_tc7_duplicate_task_id_in_input_is_paid_once[faulty] FAILED [ 41%]
-tests/test_settlement.py::test_tc8_retry_after_crash_pays_each_task_once[faulty] FAILED [ 47%]
-tests/test_settlement.py::test_tc9_rerun_of_finished_run_pays_nothing[faulty] FAILED [ 52%]
-tests/test_settlement.py::test_tc10_notification_failure_keeps_payouts[faulty] FAILED [ 58%]
-tests/test_settlement.py::test_tc11_failed_payout_sends_no_notification[faulty] PASSED [ 64%]
-tests/test_settlement.py::test_tc12_timestamp_without_offset_is_rejected[faulty] PASSED [ 70%]
-tests/test_ui.py::test_ui1_single_run_pays_each_qualifying_task_once[faulty-chromium] PASSED [ 76%]
-tests/test_ui.py::test_ui2_cut_off_task_is_shown_out_of_window_and_never_paid[faulty-chromium] PASSED [ 82%]
-tests/test_ui.py::test_ui3_running_again_pays_nothing[faulty-chromium] FAILED [ 88%]
-tests/test_ui.py::test_ui4_retry_after_crash_pays_each_task_once[faulty-chromium] FAILED [ 94%]
-tests/test_ui.py::test_ui5_notification_outage_keeps_payouts[faulty-chromium] FAILED [100%]
+tests/test_settlement.py::test_tc2_to_tc6_window_boundaries_and_timezones[faulty-tc2-lower-bound-included] PASSED [ 10%]
+tests/test_settlement.py::test_tc2_to_tc6_window_boundaries_and_timezones[faulty-tc3-upper-bound-excluded] PASSED [ 15%]
+tests/test_settlement.py::test_tc2_to_tc6_window_boundaries_and_timezones[faulty-tc4-just-inside] PASSED [ 21%]
+tests/test_settlement.py::test_tc2_to_tc6_window_boundaries_and_timezones[faulty-tc5-plus5-is-sunday-2359Z] PASSED [ 26%]
+tests/test_settlement.py::test_tc2_to_tc6_window_boundaries_and_timezones[faulty-tc6-plus5-is-monday-0000Z] PASSED [ 31%]
+tests/test_settlement.py::test_tc7_duplicate_task_id_in_input_is_paid_once[faulty] FAILED [ 36%]
+tests/test_settlement.py::test_tc8_retry_after_crash_pays_each_task_once[faulty] FAILED [ 42%]
+tests/test_settlement.py::test_tc9_rerun_of_finished_run_pays_nothing[faulty] FAILED [ 47%]
+tests/test_settlement.py::test_tc10_notification_failure_keeps_payouts[faulty] FAILED [ 52%]
+tests/test_settlement.py::test_tc11_failed_payout_sends_no_notification[faulty] PASSED [ 57%]
+tests/test_settlement.py::test_tc12_timestamp_without_offset_is_rejected[faulty] PASSED [ 63%]
+tests/test_ui.py::test_ui1_single_run_pays_each_qualifying_task_once[faulty-chromium] PASSED [ 68%]
+tests/test_ui.py::test_ui2_cut_off_task_is_shown_out_of_window_and_never_paid[faulty-chromium] PASSED [ 73%]
+tests/test_ui.py::test_ui3_running_again_pays_nothing[faulty-chromium] FAILED [ 78%]
+tests/test_ui.py::test_ui4_retry_after_crash_pays_each_task_once[faulty-chromium] FAILED [ 84%]
+tests/test_ui.py::test_ui5_notification_outage_keeps_payouts[faulty-chromium] FAILED [ 89%]
+tests/test_ui.py::test_ui6_timezone_offsets_are_converted_to_utc_before_the_cut_off[faulty-chromium] PASSED [ 94%]
+tests/test_ui.py::test_ui7_duplicate_task_id_in_input_is_paid_once[faulty-chromium] FAILED [100%]
 
 ================================== FAILURES ===================================
 __________ test_tc7_duplicate_task_id_in_input_is_paid_once[faulty] ___________
 
-settle = <function settle at 0x000001E2B5ABD640>
-ledger = <ledger.Ledger object at 0x000001E2B5A448D0>
-notifier = <notifier.MockNotifier object at 0x000001E2B5A457B0>
+settle = <function settle at 0x00000210DA524BF0>
+ledger = <ledger.Ledger object at 0x00000210DA4E08D0>
+notifier = <notifier.MockNotifier object at 0x00000210DA4E17B0>
 
     @pytest.mark.regression
     def test_tc7_duplicate_task_id_in_input_is_paid_once(settle, ledger, notifier):
@@ -52,9 +54,9 @@ E         - ]
 tests\test_settlement.py:56: AssertionError
 ___________ test_tc8_retry_after_crash_pays_each_task_once[faulty] ____________
 
-settle = <function settle at 0x000001E2B5ABD640>
-ledger = <ledger.Ledger object at 0x000001E2B6B0A950>
-notifier = <notifier.MockNotifier object at 0x000001E2B6B0AA50>
+settle = <function settle at 0x00000210DA524BF0>
+ledger = <ledger.Ledger object at 0x00000210DB5B3050>
+notifier = <notifier.MockNotifier object at 0x00000210DB5B3150>
 
     @pytest.mark.regression
     def test_tc8_retry_after_crash_pays_each_task_once(settle, ledger, notifier):
@@ -71,7 +73,7 @@ notifier = <notifier.MockNotifier object at 0x000001E2B6B0AA50>
 tests\test_settlement.py:69: 
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
-ledger = <ledger.Ledger object at 0x000001E2B6B0A950>
+ledger = <ledger.Ledger object at 0x00000210DB5B3050>
 task_ids = ['T-1', 'T-2', 'T-3', 'T-4']
 
     def assert_paid_once(ledger: Ledger, task_ids: list[str]) -> None:
@@ -82,8 +84,8 @@ E       AssertionError: assert {'T-1': 2, 'T...: 1, 'T-4': 1} == {'T-1': 1, 'T..
 E         
 E         Omitting 2 identical items, use -vv to show
 E         Differing items:
-E         {'T-1': 2} != {'T-1': 1}
 E         {'T-2': 2} != {'T-2': 1}
+E         {'T-1': 2} != {'T-1': 1}
 E         
 E         Full diff: (-: missing in left side, +: extra in left side)...
 E         
@@ -92,9 +94,9 @@ E         ...Full output truncated, use '-vv' to show
 tests\fixtures.py:22: AssertionError
 _____________ test_tc9_rerun_of_finished_run_pays_nothing[faulty] _____________
 
-settle = <function settle at 0x000001E2B5ABD640>
-ledger = <ledger.Ledger object at 0x000001E2B6B0B750>
-notifier = <notifier.MockNotifier object at 0x000001E2B6B0B850>
+settle = <function settle at 0x00000210DA524BF0>
+ledger = <ledger.Ledger object at 0x00000210DB5B3E50>
+notifier = <notifier.MockNotifier object at 0x00000210DB5F4050>
 
     @pytest.mark.regression
     def test_tc9_rerun_of_finished_run_pays_nothing(settle, ledger, notifier):
@@ -118,8 +120,8 @@ E         ...Full output truncated, use '-vv' to show
 tests\test_settlement.py:79: AssertionError
 ____________ test_tc10_notification_failure_keeps_payouts[faulty] _____________
 
-settle = <function settle at 0x000001E2B5ABD640>
-ledger = <ledger.Ledger object at 0x000001E2B6B117C0>
+settle = <function settle at 0x00000210DA524BF0>
+ledger = <ledger.Ledger object at 0x00000210DB5B98B0>
 
     @pytest.mark.regression
     def test_tc10_notification_failure_keeps_payouts(settle, ledger):
@@ -135,7 +137,7 @@ ledger = <ledger.Ledger object at 0x000001E2B6B117C0>
 tests\test_settlement.py:92: 
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
-ledger = <ledger.Ledger object at 0x000001E2B6B117C0>
+ledger = <ledger.Ledger object at 0x00000210DB5B98B0>
 task_ids = ['T-1', 'T-2', 'T-3']
 
     def assert_paid_once(ledger: Ledger, task_ids: list[str]) -> None:
@@ -145,9 +147,9 @@ task_ids = ['T-1', 'T-2', 'T-3']
 E       AssertionError: assert {'T-1': 0, 'T-2': 0, 'T-3': 0} == {'T-1': 1, 'T-2': 1, 'T-3': 1}
 E         
 E         Differing items:
-E         {'T-1': 0} != {'T-1': 1}
 E         {'T-3': 0} != {'T-3': 1}
 E         {'T-2': 0} != {'T-2': 1}
+E         {'T-1': 0} != {'T-1': 1}
 E         
 E         Full diff: (-: missing in left side, +: extra in left side)...
 E         
@@ -156,7 +158,7 @@ E         ...Full output truncated, use '-vv' to show
 tests\fixtures.py:22: AssertionError
 ____________ test_ui3_running_again_pays_nothing[faulty-chromium] _____________
 
-ui = <Page url='http://127.0.0.1:49556/'>
+ui = <Page url='http://127.0.0.1:56319/'>
 
     @pytest.mark.regression
     def test_ui3_running_again_pays_nothing(ui: Page):
@@ -176,10 +178,10 @@ E
 E       Aria snapshot:
 E       - listitem: Paid T-1, T-2, T-3, T-4
 
-tests\test_ui.py:55: AssertionError
+tests\test_ui.py:56: AssertionError
 _______ test_ui4_retry_after_crash_pays_each_task_once[faulty-chromium] _______
 
-ui = <Page url='http://127.0.0.1:49556/'>
+ui = <Page url='http://127.0.0.1:56319/'>
 
     @pytest.mark.regression
     def test_ui4_retry_after_crash_pays_each_task_once(ui: Page):
@@ -205,10 +207,10 @@ E
 E       Aria snapshot:
 E       - status: "PROBLEM: paid 60, should be 40. Paid more than once: T-1, T-2."
 
-tests\test_ui.py:70: AssertionError
+tests\test_ui.py:71: AssertionError
 _________ test_ui5_notification_outage_keeps_payouts[faulty-chromium] _________
 
-ui = <Page url='http://127.0.0.1:49556/'>
+ui = <Page url='http://127.0.0.1:56319/'>
 
     @pytest.mark.regression
     def test_ui5_notification_outage_keeps_payouts(ui: Page):
@@ -228,7 +230,28 @@ E
 E       Aria snapshot:
 E       - text: "0"
 
-tests\test_ui.py:79: AssertionError
+tests\test_ui.py:80: AssertionError
+______ test_ui7_duplicate_task_id_in_input_is_paid_once[faulty-chromium] ______
+
+ui = <Page url='http://127.0.0.1:56319/'>
+
+    @pytest.mark.regression
+    def test_ui7_duplicate_task_id_in_input_is_paid_once(ui: Page):
+        ui.get_by_test_id("duplicate").check()
+        ui.get_by_test_id("run").click()
+    
+>       expect(ui.get_by_test_id("payouts").locator("tr", has_text="T-2")).to_have_count(1)
+E       AssertionError: Locator expected to have count '1'
+E       Actual value: 2 
+E       Call log:
+E         - Expect "to_have_count" get_by_test_id("payouts").locator("tr").filter(has_text="T-2") with timeout 3000ms
+E         - waiting for get_by_test_id("payouts").locator("tr").filter(has_text="T-2")
+E           - locator resolved to 0 elements
+E           - unexpected value "0"
+E           9 × locator resolved to 2 elements
+E             - unexpected value "2"
+
+tests\test_ui.py:100: AssertionError
 =========================== short test summary info ===========================
 FAILED tests/test_settlement.py::test_tc7_duplicate_task_id_in_input_is_paid_once[faulty]
 FAILED tests/test_settlement.py::test_tc8_retry_after_crash_pays_each_task_once[faulty]
@@ -237,5 +260,6 @@ FAILED tests/test_settlement.py::test_tc10_notification_failure_keeps_payouts[fa
 FAILED tests/test_ui.py::test_ui3_running_again_pays_nothing[faulty-chromium]
 FAILED tests/test_ui.py::test_ui4_retry_after_crash_pays_each_task_once[faulty-chromium]
 FAILED tests/test_ui.py::test_ui5_notification_outage_keeps_payouts[faulty-chromium]
-================ 7 failed, 10 passed, 17 deselected in 10.47s =================
+FAILED tests/test_ui.py::test_ui7_duplicate_task_id_in_input_is_paid_once[faulty-chromium]
+================ 8 failed, 11 passed, 19 deselected in 13.82s =================
 # exit code: 1

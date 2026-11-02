@@ -62,7 +62,7 @@ rewards-qa/
   tests/
     fixtures.py        # synthetic tasks + the paid-once invariant
     test_settlement.py # TC1-TC12, parametrised over faulty and fixed
-    test_ui.py         # UI1-UI5, Playwright, parametrised over faulty and fixed
+    test_ui.py         # UI1-UI7, Playwright, parametrised over faulty and fixed
   docs/
     plan.md, test-cases.md, defect-report.md, release-checklist.md
     ai-log.md, effort-log.md, loom-script.md
@@ -104,9 +104,9 @@ Window used in all cases: Mon 2026-10-19 00:00Z to Mon 2026-10-26 00:00Z. Expect
 | TC10 | Partial failure (notification) | notifier raises on every call | payouts stay committed, failures recorded, no rollback |
 | TC11 | Order of operations | payout fails for a task | no notification sent for it |
 | TC12 | Invalid input | naive timestamp (no offset) | rejected with a clear error |
-| UI1–UI5 | Browser (Playwright) | happy path, cut-off, re-run, crash + retry, notification outage through the demo page | same expectations, checked on screen |
+| UI1–UI7 | Browser (Playwright) | happy path, cut-off, re-run, crash + retry, notification outage, timezone, duplicate input through the demo page | same expectations, checked on screen |
 
-**Results on the faulty version:** TC7, TC8, TC9, TC10 and UI3, UI4, UI5 fail. TC8 is the headline regression. The remaining cases pass on both, which shows the tests are not simply failing everywhere.
+**Results on the faulty version:** TC7, TC8, TC9, TC10 and UI3, UI4, UI5, UI7 fail. TC8 is the headline regression. The remaining cases pass on both, which shows the tests are not simply failing everywhere.
 
 ## 8. Deliverables and completion criteria
 
@@ -123,7 +123,7 @@ Window used in all cases: Mon 2026-10-19 00:00Z to Mon 2026-10-26 00:00Z. Expect
 - CI regression test: crash mid-settlement, re-run, assert exactly-once payout (TC8, UI4). Failure blocks merge.
 - Idempotency test: run twice, second run pays 0 (TC9, UI3).
 - Invariant check: credits paid = 10 × unique qualifying tasks.
-- Boundary and timezone tests (TC2–TC6, UI2) green.
+- Boundary and timezone tests (TC2–TC6, UI2, UI6) green.
 - Notification isolation test (TC10, UI5) green.
 - CI also proves the tests still catch the bug: every `regression` test must fail on the faulty version, or the gate reports "GATE BROKEN".
 - Code review gate: any payout path must check "already paid" and write the payout in one step.
@@ -143,18 +143,18 @@ Window used in all cases: Mon 2026-10-19 00:00Z to Mon 2026-10-26 00:00Z. Expect
 ```
 pip install -r requirements.txt
 python -m playwright install chromium
-python -m pytest -v              # both versions: 7 failed (all faulty), 27 passed
-python -m pytest -v -k fixed     # 17 passed
-python -m pytest -v -k faulty    # 7 failed, 10 passed
+python -m pytest -v              # both versions: 8 failed (all faulty), 30 passed
+python -m pytest -v -k fixed     # 19 passed
+python -m pytest -v -k faulty    # 8 failed, 11 passed
 python src/app.py                # demo page: http://127.0.0.1:8000
 ```
 
-**Checks and actual results** (2026-11-01, Python 3.14.3, from the evidence files):
+**Checks and actual results** (2026-11-02, Python 3.14.3, from the evidence files):
 
 | Run | Result | Exit |
 |---|---|---|
-| Faulty | 7 failed (TC7, TC8, TC9, TC10, UI3, UI4, UI5), 10 passed | 1 |
-| Fixed | 17 passed | 0 |
+| Faulty | 8 failed (TC7, TC8, TC9, TC10, UI3, UI4, UI5, UI7), 11 passed | 1 |
+| Fixed | 19 passed | 0 |
 | CI gate | verified locally: OK on faulty, "GATE BROKEN" when pointed at fixed | — |
 | CI on GitHub | passed: [run 41310774366](https://github.com/kashif-afk/Demo-project/actions/runs/41310774366) | 0 |
 
