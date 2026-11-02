@@ -47,5 +47,5 @@ After changing the code, stop the server (Ctrl+C) and start it again: it loads t
 | `src/app.py`, `src/index.html` | small local demo page (standard library only) |
 | `tests/test_settlement.py` | TC1–TC12 engine tests |
 | `tests/test_ui.py` | UI1–UI7 Playwright browser tests |
-| `docs/` | plan, test cases, defect report, release checklist, effort log, evidence |
+| `docs/` | test cases, defect report, release checklist, effort log, evidence |
 | `.github/workflows/ci.yml` | release gate |
