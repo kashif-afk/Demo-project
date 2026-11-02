@@ -1,6 +1,6 @@
 # AI usage log
 
-Tool: Claude Code (Claude Opus 5.5) in VS Code. Format from [plan.md](plan.md) §4: what I asked, what it produced, what I checked, what was corrected.
+Tool: Claude Code (Claude Opus 5.5) in VS Code. Format: what I asked, what it produced, what I checked, what was corrected.
 
 ## 2026-10-30 to 2026-10-31: first version (discarded)
 

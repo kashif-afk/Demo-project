@@ -1,6 +1,6 @@
 # Loom script (under 5 minutes)
 
-Follows plan.md §5. Say it in your own words; lines in `<angle brackets>` are yours to fill. Only say what is true.
+Say it in your own words; lines in `<angle brackets>` are yours to fill. Only say what is true.
 
 **Before recording:** run `python src/app.py`, open http://127.0.0.1:8000, choose **faulty**. Have a terminal open in the project folder.
 

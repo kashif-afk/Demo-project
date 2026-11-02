@@ -43,5 +43,5 @@ Open http://127.0.0.1:8000, choose **faulty**, tick **Crash after 2 payouts**, c
 | `src/app.py`, `src/index.html` | small local demo page (standard library only) |
 | `tests/test_settlement.py` | TC1–TC12 engine tests |
 | `tests/test_ui.py` | UI1–UI7 Playwright browser tests |
-| `docs/` | plan, test cases, defect report, release checklist, AI log, effort log, Loom script, evidence |
+| `docs/` | test cases, defect report, release checklist, AI log, effort log, Loom script, evidence |
 | `.github/workflows/ci.yml` | release gate |
