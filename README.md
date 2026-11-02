@@ -34,6 +34,10 @@ python src/app.py
 
 Open http://127.0.0.1:8000, choose **faulty**, tick **Crash after 2 payouts**, click **Run settlement**, untick, click **Run settlement** again. The status turns red: paid 60, should be 40. Choose **fixed** and repeat: paid 40.
 
+Also try **Notification service down** (faulty pays 0, fixed pays 40) and **T-2 sent twice in the input** (faulty pays T-2 twice, fixed once). T-3 and T-6 are logged at +05:00 and land either side of the cut-off.
+
+After changing the code, stop the server (Ctrl+C) and start it again: it loads the Python code only at startup.
+
 ## Layout
 
 | Path | What |
